@@ -1,3 +1,4 @@
+import { CreateClientDTO } from './client.dto';
 import { ClientService } from './client.service';
 import {
   Body,
@@ -11,12 +12,12 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Client } from '../entity/client.entity';
 import { Response } from 'express';
 
 @ApiTags('client')
-@Controller('user')
+@Controller('client')
 export class ClientController {
   @Inject(ClientService)
   private readonly clientService: ClientService;
@@ -25,21 +26,25 @@ export class ClientController {
   @ApiResponse({
     status: 200,
     description: 'Get a client',
-    type: [Client],
+    type: Client,
   })
   async getClient(
     @Query('id') id: number,
     @Res() response: Response<any>,
-  ): Promise<Client[]> {
+  ): Promise<void> {
+    console.log('getClient id', id);
     try {
       //   response.send(this.clientService.getClient(id));
-      return this.clientService.getClient(id);
+      response.send(await this.clientService.getClient(id));
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
   @Post()
+  @ApiBody({
+    type: [CreateClientDTO],
+  })
   async createClient(
     @Body() body: any,
     @Res() response: Response<any>,

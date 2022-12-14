@@ -9,16 +9,11 @@ export class ClientService {
   @InjectRepository(Client)
   private readonly clientRepository: Repository<Client>;
 
-  public getClient(id: number): Promise<Client[]> {
-    return this.clientRepository.find();
+  public getClient(id: number): Promise<Client> {
+    return this.clientRepository.findOne({ where: { id: id } });
   }
 
   public createClient(body: CreateClientDTO): Promise<Client> {
-    const client: Client = new Client();
-
-    client.firstName = body.firstName;
-    client.email = body.email;
-
-    return this.clientRepository.save(client);
+    return this.clientRepository.save(body);
   }
 }
