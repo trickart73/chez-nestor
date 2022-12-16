@@ -1,32 +1,33 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
+import { Apartment } from '../entity/apartment.entity';
 
-export class CreateApartmentDTO {
+export class CreateRoomDTO {
   @ApiProperty({
-    example: 'Apartement rue Rabelais',
-    description: 'Name of the apartment (can be anything)',
+    example: '1',
+    description: 'Number of room inside an apartment',
   })
-  @IsString()
-  public name?: string | null;
+  @IsNumber()
+  public number?: number | null;
 
   @ApiProperty({
-    example: '5, rue Rabelais',
-    description: 'Localisation (street) of the apartment',
+    example: '14.2',
+    description: 'Square feet (m²) of room',
   })
-  @IsString()
-  public street?: string | null;
+  @IsNumber()
+  public area?: number | null;
 
   @ApiProperty({
-    example: '69003',
+    example: '560',
+    description: 'Price per month for room',
+  })
+  @IsNumber()
+  public price?: number | null;
+
+  @ApiProperty({
+    example: '1',
     description: 'Zipcode of the apartment',
   })
   @IsString()
-  public zipCode?: string | null;
-
-  @ApiProperty({
-    example: 'Lyon',
-    description: 'Localisation (city) of the apartment',
-  })
-  @IsString()
-  public city?: string | null;
+  public fkApartment?: number | null;
 }

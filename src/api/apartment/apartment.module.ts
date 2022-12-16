@@ -8,5 +8,6 @@ import { ApartmentService } from './apartment.service';
   imports: [TypeOrmModule.forFeature([Apartment])],
   controllers: [ApartmentController],
   providers: [ApartmentService],
+  exports: [ApartmentService],
 })
 export class ApartmentModule {}

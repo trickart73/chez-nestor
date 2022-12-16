@@ -1,42 +1,33 @@
+import { Apartment } from './../entity/apartment.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, ILike, Repository } from 'typeorm';
-import { Apartment } from '../entity/apartment.entity';
-import { Client } from '../entity/client.entity';
-import { CreateApartmentDTO } from './room.dto';
+import { Repository } from 'typeorm';
+import { Room } from '../entity/room.entity';
+import { CreateRoomDTO } from './room.dto';
+import { ApartmentService } from '../apartment/apartment.service';
 
 @Injectable()
-export class ApartmentService {
-  @InjectRepository(Apartment)
-  private readonly apartmentRepository: Repository<Apartment>;
+export class RoomService {
+  @InjectRepository(Room)
+  private readonly roomRepository: Repository<Room>;
+  constructor(private readonly apartmentService: ApartmentService) {}
 
-  public getApartmentByID(id: number): Promise<Apartment> {
-    return this.apartmentRepository.findOne({ where: { id: id } });
+  public getRoomByID(id: number): Promise<Room> {
+    return this.roomRepository.findOne({ where: { id: id } });
   }
 
-  // public updateClient(id: number): Promise<Client> {
-  //   return this.clientRepository.findOne({ where: { id: id } });
-  // }
-
-  // public getClientByName(
-  //   firstName: string,
-  //   lastName: string,
-  // ): Promise<Client[]> {
-  //   const findOptionsWhere: FindOptionsWhere<Client> = {};
-  //   if (firstName !== '') {
-  //     const firstNameILike: string = '%' + firstName + '%';
-  //     findOptionsWhere.firstName = ILike(firstNameILike);
-  //   }
-  //   if (lastName !== '') {
-  //     const lastNameILike: string = '%' + lastName + '%';
-  //     findOptionsWhere.lastName = ILike(lastNameILike);
-  //   }
-  //   return this.clientRepository.find({
-  //     where: findOptionsWhere,
-  //   });
-  // }
-
-  public createApartment(body: CreateApartmentDTO): Promise<Apartment> {
-    return this.apartmentRepository.save(body);
+  async createRoom(body: CreateRoomDTO): Promise<Room> {
+    const idApartment = body.fkApartment;
+    let apartment: Apartment = null;
+    if (idApartment !== null) {
+      apartment = await this.apartmentService.getApartmentByID(idApartment);
+    }
+    const finalBody = {
+      number: body.number,
+      area: body.area,
+      price: body.price,
+      fkApartment: apartment,
+    };
+    return this.roomRepository.save(finalBody);
   }
 }

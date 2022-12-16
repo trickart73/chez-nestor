@@ -3,7 +3,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  JoinTable,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
@@ -13,14 +12,14 @@ export class Room {
   @PrimaryGeneratedColumn()
   public id!: number;
 
-  @Column({ type: 'varchar', length: 120 })
-  public number: string;
+  @Column({ type: 'integer' })
+  public number: number;
 
-  @Column({ type: 'varchar', length: 120 })
-  public area: string;
+  @Column({ type: 'float' })
+  public area: number;
 
-  @Column({ type: 'varchar', length: 120 })
-  public price: string;
+  @Column({ type: 'integer' })
+  public price: number;
 
   @ManyToOne((type) => Apartment)
   @JoinColumn({ name: 'fkApartment', referencedColumnName: 'id' })

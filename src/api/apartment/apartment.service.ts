@@ -17,28 +17,6 @@ export class ApartmentService {
     });
   }
 
-  // public updateClient(id: number): Promise<Client> {
-  //   return this.clientRepository.findOne({ where: { id: id } });
-  // }
-
-  // public getClientByName(
-  //   firstName: string,
-  //   lastName: string,
-  // ): Promise<Client[]> {
-  //   const findOptionsWhere: FindOptionsWhere<Client> = {};
-  //   if (firstName !== '') {
-  //     const firstNameILike: string = '%' + firstName + '%';
-  //     findOptionsWhere.firstName = ILike(firstNameILike);
-  //   }
-  //   if (lastName !== '') {
-  //     const lastNameILike: string = '%' + lastName + '%';
-  //     findOptionsWhere.lastName = ILike(lastNameILike);
-  //   }
-  //   return this.clientRepository.find({
-  //     where: findOptionsWhere,
-  //   });
-  // }
-
   public createApartment(body: CreateApartmentDTO): Promise<Apartment> {
     return this.apartmentRepository.save(body);
   }
