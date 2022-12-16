@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Room } from './room.entity';
 
 @Entity()
 export class Apartment {
@@ -16,4 +17,7 @@ export class Apartment {
 
   @Column({ type: 'varchar', length: 120 })
   public city: string;
+
+  @OneToMany((type) => Room, (room) => room.fkApartment)
+  public room: Room[];
 }

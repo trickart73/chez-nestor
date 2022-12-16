@@ -13,6 +13,10 @@ export class ClientService {
     return this.clientRepository.findOne({ where: { id: id } });
   }
 
+  // public updateClient(id: number): Promise<Client> {
+  //   return this.clientRepository.findOne({ where: { id: id } });
+  // }
+
   public getClientByName(
     firstName: string,
     lastName: string,
