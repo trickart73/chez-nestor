@@ -2,23 +2,41 @@ import { RoomService as RoomService } from './room.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   InternalServerErrorException,
   Post,
+  Put,
   Query,
   Res,
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Room } from '../entity/room.entity';
-import { CreateRoomDTO } from '../dto/room.dto';
+import { CreateRoomDTO, UpdateRoomDTO } from '../dto/room.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteDTO } from '../dto/common.dto';
 
 @ApiTags('room')
 @Controller('room')
 export class RoomController {
   @Inject(RoomService)
   private readonly roomService: RoomService;
+
+  @Get('/getAllRooms')
+  @ApiResponse({
+    status: 200,
+    description: 'Get all rooms from DB',
+    type: [Room],
+  })
+  async getAllClients(@Res() response: Response<any>): Promise<void> {
+    try {
+      response.send(await this.roomService.getAllRooms());
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 
   @Get('/getRoomByID')
   @ApiResponse({
@@ -37,7 +55,7 @@ export class RoomController {
     }
   }
 
-  @Post('/')
+  @Post('/createRoom')
   @ApiBody({
     type: CreateRoomDTO,
   })
@@ -47,6 +65,36 @@ export class RoomController {
   ): Promise<void> {
     try {
       response.send(this.roomService.createRoom(body));
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  @Put('/updateRoom')
+  @ApiBody({
+    type: UpdateRoomDTO,
+  })
+  async updateClient(
+    @Body() body: any,
+    @Res() response: Response<UpdateResult>,
+  ): Promise<void> {
+    try {
+      response.send(await this.roomService.updateRoom(body));
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  @Delete('/deleteRoom')
+  @ApiBody({
+    type: DeleteDTO,
+  })
+  async deleteClient(
+    @Body() body: any,
+    @Res() response: Response<DeleteResult>,
+  ): Promise<void> {
+    try {
+      response.send(await this.roomService.deleteRoom(body));
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
