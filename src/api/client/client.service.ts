@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
+  DeleteResult,
+  Equal,
   FindOptionsWhere,
   ILike,
   Like,
@@ -8,7 +10,11 @@ import {
   UpdateResult,
 } from 'typeorm';
 import { Client } from '../entity/client.entity';
-import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
+import {
+  CreateClientDTO,
+  DeleteClientDTO,
+  UpdateClientDTO,
+} from '../dto/client.dto';
 import { CreateResultDTO } from '../dto/common.dto';
 
 @Injectable()
@@ -16,8 +22,15 @@ export class ClientService {
   @InjectRepository(Client)
   private readonly clientRepository: Repository<Client>;
 
+  public getAllClients(): Promise<Client[]> {
+    return this.clientRepository.find({ order: { id: 'ASC' } });
+  }
+
   public getClientByID(id: number): Promise<Client> {
-    return this.clientRepository.findOne({ where: { id: id } });
+    return this.clientRepository.findOne({
+      where: { id: id },
+      order: { id: 'ASC' },
+    });
   }
 
   public getClientByName(
@@ -40,7 +53,6 @@ export class ClientService {
 
   async findIfEmailAlreadyUsed(email: string): Promise<boolean> {
     let flag = false;
-    console.log('email', email);
     const findOptionsWhere: FindOptionsWhere<Client> = {};
     findOptionsWhere.email = Like(email);
     const clientFounded = await this.clientRepository.find({
@@ -51,10 +63,6 @@ export class ClientService {
     }
     return flag;
   }
-
-  // public updateClient(body: UpdateClientDTO): Promise<UpdateResult> {
-  //   return this.clientRepository.update(body);
-  // }
 
   async createClient(body: CreateClientDTO): Promise<CreateResultDTO> {
     const findIfEmailAlreadyUsed = await this.findIfEmailAlreadyUsed(
@@ -81,5 +89,26 @@ export class ClientService {
       };
       return bodyReturn;
     }
+  }
+
+  async updateClient(body: UpdateClientDTO): Promise<UpdateResult> {
+    const findCondition: FindOptionsWhere<Client> = {
+      id: Equal(body.id),
+    };
+    return await this.clientRepository.update(findCondition, {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      phone: body.phone,
+      birthDate: body.birthDate,
+      nationality: body.nationality,
+    });
+  }
+
+  async deleteClient(body: DeleteClientDTO): Promise<DeleteResult> {
+    const findCondition: FindOptionsWhere<Client> = {
+      id: Equal(body.id),
+    };
+    return await this.clientRepository.delete(findCondition);
   }
 }

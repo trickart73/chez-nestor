@@ -47,8 +47,8 @@ export class CreateClientDTO {
 
 export class UpdateClientDTO {
   @ApiProperty({
-    example: 'Nestor',
-    description: 'First name of client',
+    example: '1',
+    description: 'Id of client in DB',
   })
   @IsNumber()
   public id?: number | null;
@@ -94,4 +94,13 @@ export class UpdateClientDTO {
   })
   @IsString()
   public nationality?: string | null;
+}
+
+export class DeleteClientDTO {
+  @ApiProperty({
+    example: '1',
+    description: 'Id of client in DB',
+  })
+  @IsNumber()
+  public id?: number | null;
 }
