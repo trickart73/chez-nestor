@@ -10,12 +10,8 @@ import {
   UpdateResult,
 } from 'typeorm';
 import { Client } from '../entity/client.entity';
-import {
-  CreateClientDTO,
-  DeleteClientDTO,
-  UpdateClientDTO,
-} from '../dto/client.dto';
-import { CreateResultDTO } from '../dto/common.dto';
+import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
+import { CreateResultDTO, DeleteDTO } from '../dto/common.dto';
 
 @Injectable()
 export class ClientService {
@@ -105,7 +101,7 @@ export class ClientService {
     });
   }
 
-  async deleteClient(body: DeleteClientDTO): Promise<DeleteResult> {
+  async deleteClient(body: DeleteDTO): Promise<DeleteResult> {
     const findCondition: FindOptionsWhere<Client> = {
       id: Equal(body.id),
     };

@@ -21,3 +21,11 @@ export class CreateResultDTO {
   @IsBoolean()
   public message?: any;
 }
+export class DeleteDTO {
+  @ApiProperty({
+    example: '1',
+    description: 'Id of selected entity in DB',
+  })
+  @IsNumber()
+  public id?: number | null;
+}

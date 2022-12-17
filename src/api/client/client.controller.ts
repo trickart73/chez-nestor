@@ -1,4 +1,4 @@
-import { DeleteClientDTO } from './../dto/client.dto';
+import { DeleteDTO } from './../dto/common.dto';
 import { UpdateClientDTO } from '../dto/client.dto';
 import { CreateClientDTO } from '../dto/client.dto';
 import { ClientService } from './client.service';
@@ -123,7 +123,7 @@ export class ClientController {
 
   @Delete('/deleteClient')
   @ApiBody({
-    type: DeleteClientDTO,
+    type: DeleteDTO,
   })
   async deleteClient(
     @Body() body: any,
