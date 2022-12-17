@@ -11,9 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Apartment } from '../entity/apartment.entity';
 import { Room } from '../entity/room.entity';
-import { CreateRoomDTO } from './room.dto';
+import { CreateRoomDTO } from '../dto/room.dto';
 
 @ApiTags('room')
 @Controller('room')

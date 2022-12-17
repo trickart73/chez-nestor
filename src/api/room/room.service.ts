@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Room } from '../entity/room.entity';
-import { CreateRoomDTO } from './room.dto';
 import { ApartmentService } from '../apartment/apartment.service';
+import { CreateRoomDTO } from '../dto/room.dto';
 
 @Injectable()
 export class RoomService {

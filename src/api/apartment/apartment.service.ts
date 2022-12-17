@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, ILike, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { CreateApartmentDTO } from '../dto/apartment.dto';
 import { Apartment } from '../entity/apartment.entity';
-import { Client } from '../entity/client.entity';
-import { CreateApartmentDTO } from './apartment.dto';
 
 @Injectable()
 export class ApartmentService {
