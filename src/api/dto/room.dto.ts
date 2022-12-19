@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { Apartment } from '../entity/apartment.entity';
 
 export class CreateRoomDTO {
   @ApiProperty({

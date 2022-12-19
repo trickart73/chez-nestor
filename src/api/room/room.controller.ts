@@ -1,4 +1,9 @@
-import { RoomService as RoomService } from './room.service';
+import { DeleteDTO } from '../dto/common.dto';
+import { CreateRoomDTO, UpdateRoomDTO } from '../dto/room.dto';
+import { Room } from '../entity/room.entity';
+import { UpdateResultDTO } from './../dto/common.dto';
+import { RoomService } from './room.service';
+
 import {
   Body,
   Controller,
@@ -13,10 +18,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Room } from '../entity/room.entity';
-import { CreateRoomDTO, UpdateRoomDTO } from '../dto/room.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { DeleteDTO } from '../dto/common.dto';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('room')
 @Controller('room')
@@ -30,10 +32,11 @@ export class RoomController {
     description: 'Get all rooms from DB',
     type: [Room],
   })
-  async getAllClients(@Res() response: Response<any>): Promise<void> {
+  async getAllClients(@Res() response: Response<Room[]>): Promise<void> {
     try {
-      response.send(await this.roomService.getAllRooms());
+      response.status(20).send(await this.roomService.getAllRooms());
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -46,11 +49,12 @@ export class RoomController {
   })
   async getRoomByID(
     @Query('id') id: number,
-    @Res() response: Response<any>,
+    @Res() response: Response<Room>,
   ): Promise<void> {
     try {
-      response.send(await this.roomService.getRoomByID(id));
+      response.status(200).send(await this.roomService.getRoomByID(id));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -64,8 +68,9 @@ export class RoomController {
     @Res() response: Response<any>,
   ): Promise<void> {
     try {
-      response.send(this.roomService.createRoom(body));
+      response.status(201).send(await this.roomService.createRoom(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -76,11 +81,12 @@ export class RoomController {
   })
   async updateClient(
     @Body() body: any,
-    @Res() response: Response<UpdateResult>,
+    @Res() response: Response<UpdateResultDTO>,
   ): Promise<void> {
     try {
-      response.send(await this.roomService.updateRoom(body));
+      response.status(201).send(await this.roomService.updateRoom(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -94,8 +100,9 @@ export class RoomController {
     @Res() response: Response<DeleteResult>,
   ): Promise<void> {
     try {
-      response.send(await this.roomService.deleteRoom(body));
+      response.status(201).send(await this.roomService.deleteRoom(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }

@@ -1,13 +1,14 @@
 import { Apartment } from './apartment.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToOne,
-} from 'typeorm';
 import { Client } from './client.entity';
+
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Room {

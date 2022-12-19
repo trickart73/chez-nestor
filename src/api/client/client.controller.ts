@@ -1,7 +1,9 @@
-import { DeleteDTO, UpdateDTO } from './../dto/common.dto';
-import { UpdateClientDTO } from '../dto/client.dto';
-import { CreateClientDTO } from '../dto/client.dto';
+import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
+import { CreateResultDTO } from '../dto/common.dto';
+import { Client } from '../entity/client.entity';
+import { DeleteDTO, UpdateResultDTO } from './../dto/common.dto';
 import { ClientService } from './client.service';
+
 import {
   Body,
   Controller,
@@ -9,18 +11,14 @@ import {
   Get,
   Inject,
   InternalServerErrorException,
-  Param,
-  ParseIntPipe,
   Post,
   Put,
   Query,
   Res,
 } from '@nestjs/common';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Client } from '../entity/client.entity';
 import { Response } from 'express';
-import { CreateResultDTO } from '../dto/common.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('client')
 @Controller('client')
@@ -34,10 +32,11 @@ export class ClientController {
     description: 'Get all clients from DB',
     type: [Client],
   })
-  async getAllClients(@Res() response: Response<any>): Promise<void> {
+  async getAllClients(@Res() response: Response<Client[]>): Promise<void> {
     try {
-      response.send(await this.clientService.getAllClients());
+      response.status(200).send(await this.clientService.getAllClients());
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -50,11 +49,12 @@ export class ClientController {
   })
   async getClientByID(
     @Query('id') id: number,
-    @Res() response: Response<any>,
+    @Res() response: Response<Client>,
   ): Promise<void> {
     try {
-      response.send(await this.clientService.getClientByID(id));
+      response.status(200).send(await this.clientService.getClientByID(id));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -80,13 +80,14 @@ export class ClientController {
   async getClientByName(
     @Query('firstName') firstName: string,
     @Query('lastName') lastName: string,
-    @Res() response: Response<any>,
+    @Res() response: Response<Client[]>,
   ): Promise<void> {
     try {
-      response.send(
-        await this.clientService.getClientByName(firstName, lastName),
-      );
+      response
+        .status(200)
+        .send(await this.clientService.getClientByName(firstName, lastName));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -100,8 +101,9 @@ export class ClientController {
     @Res() response: Response<CreateResultDTO>,
   ): Promise<void> {
     try {
-      response.send(await this.clientService.createClient(body));
+      response.status(201).send(await this.clientService.createClient(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -112,11 +114,12 @@ export class ClientController {
   })
   async updateClient(
     @Body() body: any,
-    @Res() response: Response<UpdateDTO>,
+    @Res() response: Response<UpdateResultDTO>,
   ): Promise<void> {
     try {
-      response.send(await this.clientService.updateClient(body));
+      response.status(201).send(await this.clientService.updateClient(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }
@@ -130,8 +133,9 @@ export class ClientController {
     @Res() response: Response<DeleteResult>,
   ): Promise<void> {
     try {
-      response.send(await this.clientService.deleteClient(body));
+      response.status(201).send(await this.clientService.deleteClient(body));
     } catch (error) {
+      response.status(401).send(error.message);
       throw new InternalServerErrorException(error.message);
     }
   }

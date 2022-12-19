@@ -1,10 +1,11 @@
 import { Room } from './room.entity';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  OneToOne,
+  Entity,
   JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
