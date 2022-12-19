@@ -1,3 +1,4 @@
+import { CreateResultDTO, UpdateResultDTO } from './../dto/common.dto';
 import { ClientService } from './../client/client.service';
 import { Client } from './../entity/client.entity';
 import { Apartment } from './../entity/apartment.entity';
@@ -23,21 +24,21 @@ export class RoomService {
   private clientRepository: Repository<Client>;
   constructor(private readonly apartmentService: ApartmentService) {}
 
-  public getAllRooms(): Promise<Room[]> {
+  async getAllRooms(): Promise<Room[]> {
     return this.roomRepository.find({
       order: { id: 'ASC' },
       relations: ['fkApartment'],
     });
   }
 
-  public getRoomByID(id: number): Promise<Room> {
+  async getRoomByID(id: number): Promise<Room> {
     return this.roomRepository.findOne({
       where: { id: id },
       relations: ['fkApartment'],
     });
   }
 
-  async createRoom(body: CreateRoomDTO): Promise<Room> {
+  async createRoom(body: CreateRoomDTO): Promise<CreateResultDTO> {
     const idApartment = body.fkApartment;
     let apartment: Apartment = null;
     if (idApartment !== undefined) {
@@ -49,16 +50,24 @@ export class RoomService {
       price: body.price,
       fkApartment: apartment,
     };
-    return this.roomRepository.save(finalBody);
+
+    const data = await this.roomRepository.save(finalBody);
+    const success = true;
+    const message = `Room with number ${body.number} in apartment ${body.fkApartment} has been created`;
+    const bodyReturn = {
+      success,
+      data: data,
+      message,
+    };
+    return bodyReturn;
   }
 
-  async updateRoom(body: UpdateRoomDTO): Promise<UpdateResult> {
+  async updateRoom(body: UpdateRoomDTO): Promise<UpdateResultDTO> {
     const findCondition: FindOptionsWhere<Room> = {
       id: Equal(body.id),
     };
     const idApartment = body.fkApartment;
     const idClient = body.fkClient;
-    console.log('idClient', idClient);
     let apartment: Apartment = null;
     let client: Client = null;
     if (idApartment !== null) {
@@ -67,14 +76,20 @@ export class RoomService {
     if (idClient !== undefined && idClient !== null) {
       client = await this.getClientByID(idClient);
     }
-    console.log('client', client);
-    return await this.roomRepository.update(findCondition, {
+
+    const updateResult = await this.roomRepository.update(findCondition, {
       number: body.number,
       area: body.area,
       price: body.price,
       fkApartment: apartment,
       fkClient: client,
     });
+    const message = `Entity room with id ${body.id} updated`;
+    const updateBody = {
+      updateResult,
+      message,
+    };
+    return updateBody;
   }
 
   async getClientByID(id: number): Promise<Client> {

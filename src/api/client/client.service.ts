@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Client } from '../entity/client.entity';
 import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
-import { CreateResultDTO, DeleteDTO, UpdateDTO } from '../dto/common.dto';
+import { CreateResultDTO, DeleteDTO, UpdateResultDTO } from '../dto/common.dto';
 import { RoomService } from '../room/room.service';
 import { Room } from '../entity/room.entity';
 
@@ -21,14 +21,14 @@ export class ClientService {
   private readonly clientRepository: Repository<Client>;
   constructor(private readonly roomService: RoomService) {}
 
-  public getAllClients(): Promise<Client[]> {
+  async getAllClients(): Promise<Client[]> {
     return this.clientRepository.find({
       order: { id: 'ASC' },
       relations: ['fkRoom'],
     });
   }
 
-  public getClientByID(id: number): Promise<Client> {
+  async getClientByID(id: number): Promise<Client> {
     return this.clientRepository.findOne({
       where: { id: id },
       order: { id: 'ASC' },
@@ -36,7 +36,7 @@ export class ClientService {
     });
   }
 
-  public getClientByName(
+  async getClientByName(
     firstName: string,
     lastName: string,
   ): Promise<Client[]> {
@@ -152,7 +152,7 @@ export class ClientService {
     }
   }
 
-  async updateClient(body: UpdateClientDTO): Promise<UpdateDTO> {
+  async updateClient(body: UpdateClientDTO): Promise<UpdateResultDTO> {
     const findCondition: FindOptionsWhere<Client> = {
       id: Equal(body.id),
     };
@@ -193,7 +193,7 @@ export class ClientService {
         nationality: body.nationality,
         fkRoom: associatedRoom,
       });
-      const message = 'Entity client updated';
+      const message = `Entity client with id ${body.id} updated`;
       const updateBody = {
         updateResult,
         message,

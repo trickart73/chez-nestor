@@ -22,7 +22,7 @@ export class CreateResultDTO {
   @IsBoolean()
   public message?: any;
 }
-export class UpdateDTO {
+export class UpdateResultDTO {
   @ApiProperty({
     description: 'UpdateResult of entity updated',
   })
