@@ -28,8 +28,12 @@
 
 ## :building_construction: Stack
 
-- :hotsprings:Node JS with the framework [Nest.js](https://nestjs.com/) - [TypeScript](https://www.typescriptlang.org/) - TypeScript is a **strongly typed programming language** that builds on JavaScript, giving you better tooling at any scale. - [TypeORM](https://typeorm.io/) - TypeORM can run in NodeJS, it's highly influenced by other ORMs, such as [Hibernate]. (http://hibernate.org/orm/). **TypeORM is known for high quality, scalable, maintainable applications the most productive way.** - [Swagger UI](https://swagger.io/) - Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API. **Allows to visualize and interact with the API’s resources without having any of the implementation logic in place.**
-  -:floppy_disk: [PostGreSQL](https://www.postgresql.org/) database (with [PGAdmin](https://www.pgadmin.org/))
+- :hotsprings:Node JS with the framework [Nest.js](https://nestjs.com/)
+	- [TypeScript](https://www.typescriptlang.org/) - TypeScript is a **strongly typed programming language** that builds on JavaScript, giving you better tooling at any scale.
+	- [TypeORM](https://typeorm.io/) - TypeORM can run in NodeJS, it's highly influenced by other ORMs, such as [Hibernate]. (http://hibernate.org/orm/). **TypeORM is known for high quality, scalable, maintainable applications the most productive way.**
+	- [Swagger UI](https://swagger.io/)  - Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API. **Allows to visualize and interact with the API’s resources without having any of the implementation logic in place.**
+	
+-:floppy_disk: [PostGreSQL](https://www.postgresql.org/) database (with [PGAdmin](https://www.pgadmin.org/))
 
 ## :construction_worker: Run Locally
 
