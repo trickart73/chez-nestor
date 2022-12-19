@@ -1,3 +1,9 @@
+import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
+import { CreateResultDTO, DeleteDTO, UpdateResultDTO } from '../dto/common.dto';
+import { Client } from '../entity/client.entity';
+import { Room } from '../entity/room.entity';
+import { RoomService } from '../room/room.service';
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -7,13 +13,7 @@ import {
   ILike,
   Like,
   Repository,
-  UpdateResult,
 } from 'typeorm';
-import { Client } from '../entity/client.entity';
-import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
-import { CreateResultDTO, DeleteDTO, UpdateResultDTO } from '../dto/common.dto';
-import { RoomService } from '../room/room.service';
-import { Room } from '../entity/room.entity';
 
 @Injectable()
 export class ClientService {

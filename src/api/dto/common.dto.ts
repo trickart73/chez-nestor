@@ -1,6 +1,6 @@
-import { UpdateResult } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsBoolean } from 'class-validator';
+import { IsBoolean, IsNumber } from 'class-validator';
+import { UpdateResult } from 'typeorm';
 
 export class CreateResultDTO {
   @ApiProperty({

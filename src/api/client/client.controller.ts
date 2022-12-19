@@ -1,7 +1,9 @@
+import { CreateClientDTO, UpdateClientDTO } from '../dto/client.dto';
+import { CreateResultDTO } from '../dto/common.dto';
+import { Client } from '../entity/client.entity';
 import { DeleteDTO, UpdateResultDTO } from './../dto/common.dto';
-import { UpdateClientDTO } from '../dto/client.dto';
-import { CreateClientDTO } from '../dto/client.dto';
 import { ClientService } from './client.service';
+
 import {
   Body,
   Controller,
@@ -15,10 +17,8 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Client } from '../entity/client.entity';
 import { Response } from 'express';
-import { CreateResultDTO } from '../dto/common.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('client')
 @Controller('client')

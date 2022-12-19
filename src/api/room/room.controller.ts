@@ -1,5 +1,9 @@
+import { DeleteDTO } from '../dto/common.dto';
+import { CreateRoomDTO, UpdateRoomDTO } from '../dto/room.dto';
+import { Room } from '../entity/room.entity';
 import { UpdateResultDTO } from './../dto/common.dto';
-import { RoomService as RoomService } from './room.service';
+import { RoomService } from './room.service';
+
 import {
   Body,
   Controller,
@@ -14,10 +18,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Room } from '../entity/room.entity';
-import { CreateRoomDTO, UpdateRoomDTO } from '../dto/room.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { DeleteDTO } from '../dto/common.dto';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('room')
 @Controller('room')

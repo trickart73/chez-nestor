@@ -1,5 +1,9 @@
+import { CreateApartmentDTO, UpdateApartmentDTO } from '../dto/apartment.dto';
+import { CreateResultDTO, DeleteDTO } from '../dto/common.dto';
+import { Apartment } from '../entity/apartment.entity';
 import { UpdateResultDTO } from './../dto/common.dto';
 import { ApartmentService } from './apartment.service';
+
 import {
   Body,
   Controller,
@@ -7,8 +11,6 @@ import {
   Get,
   Inject,
   InternalServerErrorException,
-  Param,
-  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -16,10 +18,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Apartment } from '../entity/apartment.entity';
-import { CreateApartmentDTO, UpdateApartmentDTO } from '../dto/apartment.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { CreateResultDTO, DeleteDTO } from '../dto/common.dto';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('apartment')
 @Controller('apartment')

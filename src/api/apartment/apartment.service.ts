@@ -1,16 +1,11 @@
-import { CreateResultDTO, UpdateResultDTO } from './../dto/common.dto';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import {
-  DeleteResult,
-  Equal,
-  FindOptionsWhere,
-  Repository,
-  UpdateResult,
-} from 'typeorm';
 import { CreateApartmentDTO, UpdateApartmentDTO } from '../dto/apartment.dto';
 import { DeleteDTO } from '../dto/common.dto';
 import { Apartment } from '../entity/apartment.entity';
+import { CreateResultDTO, UpdateResultDTO } from './../dto/common.dto';
+
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, Equal, FindOptionsWhere, Repository } from 'typeorm';
 
 @Injectable()
 export class ApartmentService {
