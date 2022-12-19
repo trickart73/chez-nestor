@@ -43,6 +43,13 @@ export class CreateClientDTO {
   })
   @IsString()
   public nationality?: string | null;
+
+  @ApiProperty({
+    example: '1',
+    description: 'Id of room reserved by client',
+  })
+  @IsNumber()
+  public fkRoom?: number | null;
 }
 
 export class UpdateClientDTO {
@@ -94,4 +101,11 @@ export class UpdateClientDTO {
   })
   @IsString()
   public nationality?: string | null;
+
+  @ApiProperty({
+    example: '1',
+    description: 'Id of room reserved by client',
+  })
+  @IsNumber()
+  public fkRoom?: number | null;
 }

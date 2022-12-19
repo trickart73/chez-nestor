@@ -30,6 +30,13 @@ export class CreateRoomDTO {
   })
   @IsString()
   public fkApartment?: number | null;
+
+  @ApiProperty({
+    example: '1',
+    description: 'Id of client who reserved a room',
+  })
+  @IsNumber()
+  public fkClient?: number | null;
 }
 
 export class UpdateRoomDTO {
@@ -67,4 +74,11 @@ export class UpdateRoomDTO {
   })
   @IsString()
   public fkApartment?: number | null;
+
+  @ApiProperty({
+    example: '1',
+    description: 'Id of client who reserved a room',
+  })
+  @IsNumber()
+  public fkClient?: number | null;
 }

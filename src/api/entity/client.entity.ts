@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Room } from './room.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity()
 export class Client {
@@ -22,4 +29,8 @@ export class Client {
 
   @Column({ type: 'boolean', default: false })
   public nationality: string;
+
+  @OneToOne((type) => Room)
+  @JoinColumn({ name: 'fkRoom', referencedColumnName: 'id' })
+  public fkRoom: Room;
 }
