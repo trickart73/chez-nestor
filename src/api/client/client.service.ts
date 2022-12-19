@@ -30,7 +30,7 @@ export class ClientService {
 
   async getClientByID(id: number): Promise<Client> {
     return this.clientRepository.findOne({
-      where: { id: id },
+      where: { id },
       order: { id: 'ASC' },
       relations: ['fkRoom'],
     });
@@ -129,7 +129,7 @@ export class ClientService {
       };
       return bodyReturn;
     } else {
-      const dataSaveClient = await this.clientRepository.save(bodySaveClient);
+      const data = await this.clientRepository.save(bodySaveClient);
 
       bodyUpdateRoom = {
         id: body.fkRoom,
@@ -137,7 +137,7 @@ export class ClientService {
         area: associatedRoom.area,
         price: associatedRoom.price,
         fkApartment: associatedRoom.fkApartment.id,
-        fkClient: dataSaveClient.id,
+        fkClient: data.id,
       };
       await this.roomService.updateRoom(bodyUpdateRoom);
 
@@ -145,7 +145,7 @@ export class ClientService {
       const message = `Client with email ${body.email} has been created`;
       const bodyReturn = {
         success,
-        data: dataSaveClient,
+        data,
         message,
       };
       return bodyReturn;

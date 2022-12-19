@@ -27,7 +27,7 @@ export class RoomService {
 
   async getRoomByID(id: number): Promise<Room> {
     return this.roomRepository.findOne({
-      where: { id: id },
+      where: { id },
       relations: ['fkApartment'],
     });
   }
@@ -50,7 +50,7 @@ export class RoomService {
     const message = `Room with number ${body.number} in apartment ${body.fkApartment} has been created`;
     const bodyReturn = {
       success,
-      data: data,
+      data,
       message,
     };
     return bodyReturn;
@@ -88,7 +88,7 @@ export class RoomService {
 
   async getClientByID(id: number): Promise<Client> {
     const clientFound = await this.clientRepository.findOne({
-      where: { id: id },
+      where: { id },
       order: { id: 'ASC' },
     });
     return clientFound;

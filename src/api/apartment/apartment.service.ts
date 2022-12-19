@@ -21,7 +21,7 @@ export class ApartmentService {
 
   async getApartmentByID(id: number): Promise<Apartment> {
     return this.apartmentRepository.findOne({
-      where: { id: id },
+      where: { id },
       relations: ['room'],
     });
   }
@@ -32,7 +32,7 @@ export class ApartmentService {
     const message = `Apartment with name ${body.name} has been created`;
     const bodyReturn = {
       success,
-      data: data,
+      data,
       message,
     };
     return bodyReturn;

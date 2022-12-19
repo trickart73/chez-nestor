@@ -95,3 +95,4 @@ DATABASE_PORT=5432
     ![image](https://user-images.githubusercontent.com/14876793/208536345-4ff96bc3-2050-4880-9a6b-f274602a22f8.png)
 2.  Set up unit tests and non-regression tests
 3.  Set up docker in order to be able to deploy the project more easily (including the database in particular).
+4.  Host database and API to facilitate testing (:broken_heart:RIP Heroku)
