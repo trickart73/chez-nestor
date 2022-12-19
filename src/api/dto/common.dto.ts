@@ -1,3 +1,4 @@
+import { UpdateResult } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber, IsBoolean } from 'class-validator';
 
@@ -21,6 +22,20 @@ export class CreateResultDTO {
   @IsBoolean()
   public message?: any;
 }
+export class UpdateDTO {
+  @ApiProperty({
+    description: 'UpdateResult of entity updated',
+  })
+  @IsNumber()
+  public updateResult?: UpdateResult | null;
+
+  @ApiProperty({
+    description: 'Message concerning the entity updated',
+  })
+  @IsNumber()
+  public message?: string | null;
+}
+
 export class DeleteDTO {
   @ApiProperty({
     example: '1',

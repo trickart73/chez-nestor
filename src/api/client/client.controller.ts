@@ -1,4 +1,4 @@
-import { DeleteDTO } from './../dto/common.dto';
+import { DeleteDTO, UpdateDTO } from './../dto/common.dto';
 import { UpdateClientDTO } from '../dto/client.dto';
 import { CreateClientDTO } from '../dto/client.dto';
 import { ClientService } from './client.service';
@@ -112,7 +112,7 @@ export class ClientController {
   })
   async updateClient(
     @Body() body: any,
-    @Res() response: Response<UpdateResult>,
+    @Res() response: Response<UpdateDTO>,
   ): Promise<void> {
     try {
       response.send(await this.clientService.updateClient(body));

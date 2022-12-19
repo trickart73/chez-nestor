@@ -17,7 +17,10 @@ export class ApartmentService {
   private readonly apartmentRepository: Repository<Apartment>;
 
   public getAllApartments(): Promise<Apartment[]> {
-    return this.apartmentRepository.find({ order: { id: 'ASC' } });
+    return this.apartmentRepository.find({
+      order: { id: 'ASC' },
+      relations: ['room'],
+    });
   }
 
   public getApartmentByID(id: number): Promise<Apartment> {
